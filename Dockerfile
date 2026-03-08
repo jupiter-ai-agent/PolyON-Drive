@@ -1,7 +1,7 @@
-FROM nextcloud:30-apache
+FROM nextcloud:33-apache
 
 LABEL maintainer="Triangle.s <cmars@triangles.co.kr>"
-LABEL description="PolyON Drive — Nextcloud 30 with AD DC LDAP + RustFS S3"
+LABEL description="PolyON Drive — Nextcloud 33 with AD DC LDAP + RustFS S3"
 
 # 필수 패키지 설치
 RUN apt-get update && apt-get install -y --no-install-recommends \

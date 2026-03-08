@@ -1,6 +1,6 @@
 # PolyON Drive
 
-**Customized Nextcloud 30 for PolyON Platform**
+**Customized Nextcloud 33 for PolyON Platform**
 
 AD DC 네이티브 LDAP 인증 + RustFS(S3) 오브젝트 스토리지 통합.
 
@@ -93,7 +93,7 @@ docker buildx build --platform linux/amd64,linux/arm64 \
 
 ```
 polyon-drive/
-├── Dockerfile              # Nextcloud 30-apache 기반 커스텀 이미지
+├── Dockerfile              # Nextcloud 33-apache 기반 커스텀 이미지
 ├── entrypoint.sh           # LDAP/OIDC/S3/프록시 자동 설정
 ├── config/
 │   └── autoconfig.php      # Nextcloud 자동 설정
