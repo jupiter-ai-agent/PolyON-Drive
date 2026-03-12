@@ -10,8 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up QEMU (멀티플랫폼)
+      - name: Read version from VERSION file
+        id: version
+        run: |
+          # 이 리포에 VERSION 파일이 있으면 우선 사용, 없으면 PolyON-Operator에서 읽기
+          if [ -f VERSION ]; then
+            VER=$(grep "^drive=" VERSION | cut -d= -f2)
+          else
+            VER=$(curl -sf https://raw.githubusercontent.com/jupiter-ai-agent/PolyON-Operator/main/VERSION | grep "^drive=" | cut -d= -f2)
+          fi
+          echo "version=${VER}" >> $GITHUB_OUTPUT
+          echo "Image version: ${VER}"
+
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
@@ -27,9 +41,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            jupitertriangles/polyon-drive:v1.0.0
+            jupitertriangles/polyon-drive:v${{ steps.version.outputs.version }}
             jupitertriangles/polyon-drive:latest
